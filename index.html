@@ -2,38 +2,46 @@
   <head>
     <script type="text/javascript">
 
-    // failure callback
-      var get_media_fail = function(e) {
-        console.log("Camera access denied." + e);
-       };
+	// failure callback
+  	var get_media_fail = function(e) {
+		console.log("Camera access denied." + e);
+   	};
 
-    // success callback
-    var get_media_success = function(stream) {
-        console.log("Camera access granted." + stream)
-    };
-
-    var call_get_user_media = function() {
-        var media_constraints = {
-            "audio": false,
-            "video": {
-                "mandatory": {
-                    "minWidth": 320,
-                    "maxWidth": 640,
-                    "minHeight": 240,
-                    "maxHeight": 480
-                },
-                "optional": []
-            }
-        };
-        navigator.webkitGetUserMedia(media_constraints, 
-                                      get_media_success, 
-                                      get_media_fail);
-    };
+	// success callback
+	var get_media_success = function(stream) {
+		console.log("Camera access granted." + stream)
+		var video_container = document.getElementById("video_container");
+        video_container.src = window.URL.createObjectURL(stream);
+		// video_container.autoplay = true;
+		
+	};
+	
+	var call_get_user_media = function() {
+		var media_constraints = {
+		    "audio": false,
+		    "video": {
+		        "mandatory": {
+		            "minWidth": 320,
+		            "maxWidth": 640,
+		            "minHeight": 240,
+		            "maxHeight": 480
+		        },
+		        "optional": []
+		    }
+		};
+	    navigator.webkitGetUserMedia(media_constraints, get_media_success, get_media_fail);
+	
+	};
 
     </script>
   </head>
   <body>
-      <p>If you turn wifi off in Google Chrome on Android the get_media_success callback doesn't fire</p>
-      <button onclick="call_get_user_media()">Get User Media</button>
+	  <p>If you turn wifi off in Google Chrome on Android the get_media_success callback doesn't fire</p>
+
+	  <div>
+		  <button onclick="call_get_user_media()">Call Get User Media</button>
+	  </div>
+	  <video id="video_container" style="width:320px; height:240px; background:#000;"></video>
+
   </body>
 </html>
