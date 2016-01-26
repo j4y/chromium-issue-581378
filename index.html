@@ -12,8 +12,7 @@
 		console.log("Camera access granted." + stream)
 		var video_container = document.getElementById("video_container");
         video_container.src = window.URL.createObjectURL(stream);
-		// video_container.autoplay = true;
-		
+		video_container.autoplay = true;
 	};
 	
 	var call_get_user_media = function() {
