@@ -11,27 +11,19 @@
 	var get_media_success = function(stream) {
 		console.log("Camera access granted." + stream)
 		var video_container = document.getElementById("video_container");
-        video_container.src = window.URL.createObjectURL(stream);
+
+        // Create an object URL for the video stream and use this to set the video source.
+		// appear to be failing here
+		var video_src = window.URL.createObjectURL(stream);
+		console.log(video_src);
+        video_container.src = video_src;
 		video_container.autoplay = true;
 	};
 	
 	var call_get_user_media = function() {
-		var media_constraints = {
-		    "audio": false,
-		    "video": {
-		        "mandatory": {
-		            "minWidth": 320,
-		            "maxWidth": 640,
-		            "minHeight": 240,
-		            "maxHeight": 480
-		        },
-		        "optional": []
-		    }
-		};
+		var media_constraints = { audio: false, video: true };
 	    navigator.webkitGetUserMedia(media_constraints, get_media_success, get_media_fail);
-	
 	};
-
     </script>
   </head>
   <body>
@@ -40,6 +32,7 @@
 	  <div>
 		  <button onclick="call_get_user_media()">Call Get User Media</button>
 	  </div>
+
 	  <video id="video_container" style="width:320px; height:240px; background:#000;"></video>
 
   </body>
