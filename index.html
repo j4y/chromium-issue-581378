@@ -14,9 +14,8 @@
 
         // Create an object URL for the video stream and use this to set the video source.
 		// appear to be failing here
-		var video_src = window.URL.createObjectURL(stream);
-		console.log(video_src);
-        video_container.src = video_src;
+        video_container.src = window.URL.createObjectURL(stream);
+		console.log(video_container.src)
 		video_container.autoplay = true;
 	};
 	
